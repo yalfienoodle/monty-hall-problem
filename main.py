@@ -1,6 +1,7 @@
 import random
 def choosing():
   open("wl.txt","w")
+  open("wlNoSwap.txt","w")
   while True:
     doors = []
     available = ["0","1","2"]
@@ -28,12 +29,26 @@ def choosing():
     else:
       open("wl.txt","a").write("l")
       print("LOSS")
+      
+    if random.randint(0,2) == 0:
+      open("wlNoSwap.txt","a").write("w")
+      print("WIN")
+    else:
+      open("wlNoSwap.txt","a").write("l")
+      print("LOSS")
 def dataCounting():
   data = open("wl.txt","r").read()
   wins = data.count("w")
   losses = data.count("l")
   total = wins+losses
   print("When swapping")
+  print(f"   Wins: {wins}/{total} ({int(round(wins/total,2)*100)}% win rate)")
+  print(f"   Losses: {losses}/{total} ({int(round(losses/total,2)*100)}% loss rate)")
+  data = open("wlNoSwap.txt","r").read()
+  wins = data.count("w")
+  losses = data.count("l")
+  total = wins+losses
+  print("When sticking")
   print(f"   Wins: {wins}/{total} ({int(round(wins/total,2)*100)}% win rate)")
   print(f"   Losses: {losses}/{total} ({int(round(losses/total,2)*100)}% loss rate)")
 if input("1 for the problem 2 for the data counting >> ") == "1":
